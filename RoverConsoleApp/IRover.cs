@@ -8,10 +8,12 @@ namespace RoverConsoleApp
 {
     interface IRover
     {
-        char getLetterOfDirection(int angle);
-        int getAngle(char letterOfDirection);
+        char FindLetterOfDirection(int angle);
+        int FindAngle(char letterOfDirection);
         void MoveRover(string moveInputs, RoverPosition roverPosition, Plateau plateau);
-        void LimitsOfPlateau(string upperRightInput);
+        void CreateLimitsOfPlateau(string upperRightInput);
+        void CreateCurrentPosition(string currentPosition);
+        void MoveWithInputs(string moveInputs);
         void MoveWithCurrentPositionAndMoveInputs();
     }
 }
