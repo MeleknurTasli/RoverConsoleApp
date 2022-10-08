@@ -123,9 +123,9 @@ namespace UnitTestsForRover.cs
 
             // Act
             rover.MoveWithInputs(moveInputs);
-            string actualLastPosition = rover.lastPosition;
 
             // Assert
+            string actualLastPosition = rover.lastPosition;
             Assert.AreEqual(expectedLastPosition, actualLastPosition);
         }
     }
