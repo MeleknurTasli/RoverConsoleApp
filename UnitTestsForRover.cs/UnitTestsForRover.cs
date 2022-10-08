@@ -3,7 +3,7 @@ using RoverConsoleApp;
 namespace UnitTestsForRover.cs
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTestsForRover
     {
         [TestMethod]
         public void TestMoveRover()
@@ -110,8 +110,8 @@ namespace UnitTestsForRover.cs
         {
             // Arrange
             Rover rover = new Rover();
-            string currentPos = "1 2 N";
-            int expected_x = 1;
+            string currentPos = "2 2 N";
+            int expected_x = 2;
             int expected_y = 2;
             char expected_dir = 'N';
             int expected_angle = 0;
