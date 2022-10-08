@@ -128,5 +128,31 @@ namespace UnitTestsForRover.cs
             string actualLastPosition = rover.lastPosition;
             Assert.AreEqual(expectedLastPosition, actualLastPosition);
         }
+
+        [TestMethod]
+        public void TestCreateCurrentPosition()
+        {
+            // Arrange
+            Rover rover = new Rover();
+            rover.plateau = new Plateau() { RightCorner = 5, UpperCorner = 5 };
+            string currentpos = "3 2 N";
+            int expected_X = 3;
+            int expected_Y = 2;
+            char expected_dir = 'N';
+            int expectedAngle = 0;
+
+            // Act
+            rover.CreateCurrentPosition(currentpos);
+
+            // Assert
+            int actual_X = rover.roverPosition.Xcoordinate;
+            int actual_Y = rover.roverPosition.Ycoordinate;
+            char actualDir = rover.roverPosition.LetterOfDirection;
+            int actualAngle = rover.roverPosition.Angle;
+            Assert.AreEqual(expected_X, actual_X);
+            Assert.AreEqual(expected_Y, actual_Y);
+            Assert.AreEqual(expected_dir, actualDir);
+            Assert.AreEqual(expectedAngle, actualAngle);
+        }
     }
 }
