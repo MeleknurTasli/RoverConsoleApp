@@ -4,8 +4,8 @@ namespace RoverConsoleApp
     public class Rover : IRover
     {
         public string lastPosition { get; set; }
-        Plateau plateau = new Plateau();
-        RoverPosition roverPosition = new RoverPosition();
+        public Plateau plateau = new Plateau();
+        public RoverPosition roverPosition = new RoverPosition();
         public char FindLetterOfDirection(int angle)
         // get the direction according to angle with given info
         {
