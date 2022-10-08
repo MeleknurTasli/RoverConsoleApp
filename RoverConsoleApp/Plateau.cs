@@ -1,7 +1,7 @@
 ﻿
 namespace RoverConsoleApp
 {
-    class Plateau
+    public class Plateau
     {
         public int UpperCorner { get; set; }
         public int RightCorner { get; set; }

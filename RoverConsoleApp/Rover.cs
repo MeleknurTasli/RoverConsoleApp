@@ -1,8 +1,9 @@
 ﻿
 namespace RoverConsoleApp
 {
-    class Rover : IRover
+    public class Rover : IRover
     {
+        public string lastPosition { get; set; }
         Plateau plateau = new Plateau();
         RoverPosition roverPosition = new RoverPosition();
         public char FindLetterOfDirection(int angle)
@@ -31,7 +32,7 @@ namespace RoverConsoleApp
                 return 270;
         }
 
-        public void MoveRover(string moveInputs, RoverPosition roverPosition, Plateau plateau)
+        public void MoveRover(RoverPosition roverPosition, Plateau plateau, string moveInputs)
         {
             int angleChange = 90;
             int moveStep = 1;
@@ -194,8 +195,9 @@ namespace RoverConsoleApp
             {
                 if (moveInputs != null && moveInputs.All(c => moveInputsChars.Contains(c))) //("LRM".Contains) Checks every char in moveInput if they are in moveInputChars
                 {
-                    MoveRover(moveInputs, roverPosition, plateau); //Apply the algorithm
-                    Console.WriteLine(roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection);
+                    MoveRover(roverPosition, plateau, moveInputs); //Apply the algorithm
+                    lastPosition = roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection;
+                    Console.WriteLine(lastPosition);
                     ContinueEnterMoveInput = false;
                 }
                 else
@@ -246,8 +248,9 @@ namespace RoverConsoleApp
                                         string moveInputs = Console.ReadLine(); //MMRMMRMRRM
                                         if (moveInputs != null && moveInputs.All(c => moveInputsChars.Contains(c))) //("LRM".Contains) Checks every char in moveInput if they are in moveInputChars
                                         {
-                                            MoveRover(moveInputs, roverPosition, plateau); //Apply the algorithm
-                                            Console.WriteLine(roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection);
+                                            MoveRover(roverPosition, plateau, moveInputs); //Apply the algorithm
+                                            lastPosition = roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection;
+                                            Console.WriteLine(lastPosition); 
                                             ContinueEnterMoveInput = false;
                                             Console.WriteLine("Do you want to exit? 1:Yes, Any Key:No");
                                             if (Console.ReadLine() == "1")

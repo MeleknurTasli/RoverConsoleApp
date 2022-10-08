@@ -5,7 +5,7 @@ namespace RoverConsoleApp
     {
         char FindLetterOfDirection(int angle);
         int FindAngle(char letterOfDirection);
-        void MoveRover(string moveInputs, RoverPosition roverPosition, Plateau plateau);
+        void MoveRover(RoverPosition roverPosition, Plateau plateau, string moveInputs);
         void CreateLimitsOfPlateau(string upperRightInput);
         void CreateCurrentPosition(string currentPosition);
         void MoveWithInputs(string moveInputs);

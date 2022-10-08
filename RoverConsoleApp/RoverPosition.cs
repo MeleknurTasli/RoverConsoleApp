@@ -1,7 +1,7 @@
 ﻿
 namespace RoverConsoleApp
 {
-    class RoverPosition
+    public class RoverPosition
     {
         public int Xcoordinate { get; set; }
         public int Ycoordinate { get; set; }
