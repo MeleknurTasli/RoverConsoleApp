@@ -97,37 +97,36 @@ namespace UnitTestsForRover.cs
 
             // Act
             rover.CreateLimitsOfPlateau(upperRightInput);
-            int actual_upper = rover.plateau.UpperCorner;
-            int actual_right = rover.plateau.RightCorner;
 
             // Assert
+            int actual_upper = rover.plateau.UpperCorner;
+            int actual_right = rover.plateau.RightCorner;
             Assert.AreEqual(expected_upper, actual_upper);
             Assert.AreEqual(expected_right, actual_right);
         }
 
         [TestMethod]
-        public void TestCreateCurrentPosition()
+        public void TestMoveWithInputs()
         {
             // Arrange
             Rover rover = new Rover();
-            string currentPos = "2 2 N";
-            int expected_x = 2;
-            int expected_y = 2;
-            char expected_dir = 'N';
-            int expected_angle = 0;
+            rover.roverPosition = new RoverPosition()
+            {
+                Xcoordinate = 1,
+                Ycoordinate = 2,
+                LetterOfDirection = 'N',
+                Angle = 0
+            };
+            rover.plateau = new Plateau() { RightCorner = 5, UpperCorner = 5 };
+            string expectedLastPosition = "1 3 N";
+            string moveInputs = "LMLMLMLMM";
 
             // Act
-            rover.CreateCurrentPosition(currentPos);
-            int actual_x = rover.roverPosition.Xcoordinate;
-            int actual_y = rover.roverPosition.Ycoordinate;
-            char actual_dir = rover.roverPosition.LetterOfDirection;
-            int actual_angle = rover.roverPosition.Angle;
+            rover.MoveWithInputs(moveInputs);
+            string actualLastPosition = rover.lastPosition;
 
             // Assert
-            Assert.AreEqual(expected_x, actual_x);
-            Assert.AreEqual(expected_y, actual_y);
-            Assert.AreEqual(expected_dir, actual_dir);
-            Assert.AreEqual(expected_angle, actual_angle);
+            Assert.AreEqual(expectedLastPosition, actualLastPosition);
         }
     }
 }
