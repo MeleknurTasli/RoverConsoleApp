@@ -12,5 +12,6 @@ namespace RoverConsoleApp
         int getAngle(char letterOfDirection);
         void MoveRover(string moveInputs, RoverPosition roverPosition, Plateau plateau);
         void LimitsOfPlateau(string upperRightInput);
+        void MoveWithCurrentPositionAndMoveInputs();
     }
 }

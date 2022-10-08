@@ -5,3 +5,8 @@ Console.WriteLine("Upper-Right Corners Of The Plateau: ");
 string upperRightInput = Console.ReadLine();
 rover.LimitsOfPlateau(upperRightInput);
 
+rover.MoveWithCurrentPositionAndMoveInputs();
+
+    
+
+

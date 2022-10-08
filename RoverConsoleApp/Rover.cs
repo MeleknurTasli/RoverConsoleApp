@@ -8,6 +8,7 @@ namespace RoverConsoleApp
 {
     class Rover : IRover
     {
+        Plateau plateau = new Plateau();
         public char getLetterOfDirection(int angle)
         // get the direction according to angle with given info
         {
@@ -90,7 +91,6 @@ namespace RoverConsoleApp
         public void LimitsOfPlateau(string upperRightInput)
         {
             int parsedUpperCorner, parsedRightCorner;
-            Plateau plateau = new Plateau();
             bool isEnteringNumber = true;
             while (isEnteringNumber) //until user gives input in the correct format
             {
@@ -122,6 +122,93 @@ namespace RoverConsoleApp
                 else
                 {
                     Console.WriteLine("Cannot be null.");
+                    Console.WriteLine("Upper-Right Corners Of The Plateau: ");
+                    upperRightInput = Console.ReadLine();
+                }
+            }
+        }
+
+        public void MoveWithCurrentPositionAndMoveInputs()
+        {
+            RoverPosition roverPosition = new RoverPosition();
+            bool isContinued = true;
+            bool ContinueEnterMoveInput;
+            string currentPosition;
+            int parsedPositionX, parsedPositionY;
+            string moveInputsChars = "LRM";//Move inputs should only have L,R,M
+
+            while (isContinued) //loop until user exit
+            {
+                Console.WriteLine("Current position: ");
+                currentPosition = Console.ReadLine(); //3 3 E
+                if (currentPosition != null)
+                {
+                    try //In any case
+                    {
+                        string[] currentPositionSplitted = currentPosition.Split(' '); //Split string according to space
+                        if (currentPositionSplitted.Length == 3 &&
+                            Int32.TryParse(currentPositionSplitted[0], out parsedPositionX) && //if it is int, returns 1 and parsedPositionX is the int value of it
+                            Int32.TryParse(currentPositionSplitted[1], out parsedPositionY) && //if it is int, returns 1 and parsedPositionY is the int value of it
+                            parsedPositionX <= plateau.RightCorner && parsedPositionY <= plateau.UpperCorner &&  //Current position cannot be lower or higher than limits
+                            parsedPositionX >= plateau.LeftCorner && parsedPositionY >= plateau.LowerCorner)
+                        {
+                            roverPosition.Xcoordinate = parsedPositionX;
+                            roverPosition.Ycoordinate = parsedPositionY;
+                            if (currentPositionSplitted[2].Length == 1)
+                            {
+                                roverPosition.LetterOfDirection = currentPositionSplitted[2].ToCharArray()[0];
+                                if (roverPosition.LetterOfDirection != '-')
+                                {
+                                    roverPosition.Angle = getAngle(roverPosition.LetterOfDirection);
+                                    ContinueEnterMoveInput = true;
+                                    while (ContinueEnterMoveInput)//until user gives input in the correct format
+                                    {
+                                        Console.WriteLine("Move Inputs:");
+                                        string moveInputs = Console.ReadLine(); //MMRMMRMRRM
+                                        if (moveInputs != null && moveInputs.All(c => moveInputsChars.Contains(c))) //("LRM".Contains) Checks every char in moveInput if they are in moveInputChars
+                                        {
+                                            MoveRover(moveInputs, roverPosition, plateau); //Apply the algorithm
+                                            Console.WriteLine(roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection);
+                                            ContinueEnterMoveInput = false;
+                                            Console.WriteLine("Do you want to exit? 1:Yes, Any Key:No");
+                                            if (Console.ReadLine() == "1")
+                                            {
+                                                isContinued = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Move inputs can only be R, L, M");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("The letter of direction must be W or E or N or S.");
+                                    continue;//until user gives input in the correct format
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("The letter of direction must be one letter.");
+                                continue;//until user gives input in the correct format
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("There should be 3 input and the first two numbers must be integer and in the plateau limits. Limits are:" + plateau.UpperCorner + ", " + plateau.RightCorner);
+                            continue;//until user gives input in the correct format
+                        }
+                    }
+                    catch (Exception E)
+                    {
+                        Console.WriteLine(E.Message);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Cannot be null.");
+                    continue;
                 }
             }
         }
