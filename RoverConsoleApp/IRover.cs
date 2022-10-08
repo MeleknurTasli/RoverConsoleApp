@@ -9,6 +9,5 @@ namespace RoverConsoleApp
         void CreateLimitsOfPlateau(string upperRightInput);
         void CreateCurrentPosition(string currentPosition);
         void MoveWithInputs(string moveInputs);
-        void MoveWithCurrentPositionAndMoveInputs();
     }
 }
