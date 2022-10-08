@@ -25,5 +25,6 @@ namespace RoverConsoleApp
             }
         }
         public int Angle { get; set; }
+
     }
 }
