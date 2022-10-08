@@ -26,3 +26,55 @@ int getAngle(char letterOfDirection)
         return 270;
 }
 
+void MoveRover(string moveInputs, RoverPosition roverPosition, Plateau plateau)
+{
+    int angleChange = 90;
+    int moveStep = 1;
+
+    for (int i = 0; i < moveInputs.Length; i++) //check each char in str MoveInputs
+    {
+        if (moveInputs[i] == 'L')
+        {
+            roverPosition.Angle = roverPosition.Angle - angleChange; //when left, it turns 90 degree to counter clockwise. It means degree will decrease by 90.
+            if (roverPosition.Angle < 0) //when angle is lower than zero, sum with 360 degree because for example -90 degree is equal to 270 degree in coordinate axis
+            {
+                roverPosition.Angle = roverPosition.Angle + 360;
+            }
+            roverPosition.LetterOfDirection = getLetterOfDirection(roverPosition.Angle); //get the direction according to angle
+        }
+        else if (moveInputs[i] == 'R')
+        {
+            roverPosition.Angle = roverPosition.Angle + angleChange;  //when right, it turns 90 degree to clockwise. It means degree will increase by 90.
+            if (roverPosition.Angle == 360)
+            {
+                roverPosition.Angle = 0;  //360 degree means 0 degree in coordinate axis
+            }
+            roverPosition.LetterOfDirection = getLetterOfDirection(roverPosition.Angle); //get the direction according to angle
+        }
+        else if (moveInputs[i] == 'M')
+        {
+            //According to directions, move 1 step in the direction axises.
+            //When in the limits of the plateau, do not go further.
+            if (roverPosition.LetterOfDirection == 'N')
+            {
+                roverPosition.Ycoordinate += moveStep;
+                if (roverPosition.Ycoordinate > plateau.UpperCorner) roverPosition.Ycoordinate = plateau.UpperCorner;
+            }
+            else if (roverPosition.LetterOfDirection == 'S')
+            {
+                roverPosition.Ycoordinate -= moveStep;
+                if (roverPosition.Ycoordinate < 0) roverPosition.Ycoordinate = 0;
+            }
+            else if (roverPosition.LetterOfDirection == 'W')
+            {
+                roverPosition.Xcoordinate -= moveStep;
+                if (roverPosition.Xcoordinate < 0) roverPosition.Xcoordinate = 0;
+            }
+            else if (roverPosition.LetterOfDirection == 'E')
+            {
+                roverPosition.Xcoordinate += moveStep;
+                if (roverPosition.Xcoordinate > plateau.RightCorner) roverPosition.Xcoordinate = plateau.RightCorner;
+            }
+        }
+    }
+}
