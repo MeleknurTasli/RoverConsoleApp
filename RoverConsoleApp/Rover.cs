@@ -96,7 +96,7 @@ namespace RoverConsoleApp
                     try //In any case
                     {
                         string[] upperRightInputSplitted = upperRightInput.Split(' ');
-                        if (upperRightInputSplitted.Length == 2 && // must be only 2 inputs
+                        if ((upperRightInputSplitted.Length == 2 || (upperRightInputSplitted.Length == 3 && upperRightInputSplitted[upperRightInputSplitted.Length-1] == "")) && // must be only 2 inputs
                             Int32.TryParse(upperRightInputSplitted[0], out parsedUpperCorner) &&//if it is int, returns 1 and parsedUpperCorner is the int value of it
                             Int32.TryParse(upperRightInputSplitted[1], out parsedRightCorner))
                         {
@@ -138,7 +138,7 @@ namespace RoverConsoleApp
                     try //In any case
                     {
                         string[] currentPositionSplitted = currentPosition.Split(' '); //Split string according to space
-                        if (currentPositionSplitted.Length == 3 &&
+                        if ((currentPositionSplitted.Length == 3 || (currentPositionSplitted.Length == 4 && currentPositionSplitted[currentPositionSplitted.Length - 1] == "")) &&
                             Int32.TryParse(currentPositionSplitted[0], out parsedPositionX) && //if it is int, returns 1 and parsedPositionX is the int value of it
                             Int32.TryParse(currentPositionSplitted[1], out parsedPositionY) && //if it is int, returns 1 and parsedPositionY is the int value of it
                             parsedPositionX <= plateau.RightCorner && parsedPositionY <= plateau.UpperCorner &&  //Current position cannot be lower or higher than limits
@@ -170,7 +170,7 @@ namespace RoverConsoleApp
                         }
                         else
                         {
-                            Console.WriteLine("There should be 3 input and the first two numbers must be integer and in the plateau limits. Limits are:" + plateau.UpperCorner + ", " + plateau.RightCorner);
+                            Console.WriteLine($"There should be 3 input and the first two numbers must be integer and in the plateau limits. Limits are: {plateau.UpperCorner}, {plateau.RightCorner}");
                             Console.WriteLine("Current position: ");
                             currentPosition = Console.ReadLine();
                         }
@@ -189,6 +189,7 @@ namespace RoverConsoleApp
 
         public void MoveWithInputs(string moveInputs)
         {
+            moveInputs = moveInputs.Replace(" ", "");
             string moveInputsChars = "LRM";//Move inputs should only have L,R,M
             bool ContinueEnterMoveInput = true;
             while (ContinueEnterMoveInput)//until user gives input in the correct format
@@ -196,7 +197,7 @@ namespace RoverConsoleApp
                 if (moveInputs != null && moveInputs.All(c => moveInputsChars.Contains(c))) //("LRM".Contains) Checks every char in moveInput if they are in moveInputChars
                 {
                     MoveRover(roverPosition, plateau, moveInputs); //Apply the algorithm
-                    lastPosition = roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection;
+                    lastPosition = $"{roverPosition.Xcoordinate} {roverPosition.Ycoordinate} {roverPosition.LetterOfDirection}";
                     Console.WriteLine(lastPosition);
                     ContinueEnterMoveInput = false;
                 }
@@ -249,7 +250,7 @@ namespace RoverConsoleApp
                                         if (moveInputs != null && moveInputs.All(c => moveInputsChars.Contains(c))) //("LRM".Contains) Checks every char in moveInput if they are in moveInputChars
                                         {
                                             MoveRover(roverPosition, plateau, moveInputs); //Apply the algorithm
-                                            lastPosition = roverPosition.Xcoordinate + " " + roverPosition.Ycoordinate + " " + roverPosition.LetterOfDirection;
+                                            lastPosition = $"{roverPosition.Xcoordinate} {roverPosition.Ycoordinate} {roverPosition.LetterOfDirection}";
                                             Console.WriteLine(lastPosition); 
                                             ContinueEnterMoveInput = false;
                                             Console.WriteLine("Do you want to exit? 1:Yes, Any Key:No");
